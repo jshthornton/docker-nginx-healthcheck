@@ -5,6 +5,7 @@ It is specifically designed to assist in setting up container platforms before a
 This is commonly needed in scenarios like preparing AWS ECS environments using Infrastructure as Code (IaC) tools such as Terraform.
 
 ## Purpose
+
 The primary use case for this Docker image is to provide a temporary solution during the infrastructure setup phase.
 This allows for the configuration of security groups, Application Load Balancers (ALBs), clusters, services, and more, ensuring that everything is in place and operational before the actual application is deployed.
 
@@ -17,8 +18,21 @@ This endpoint is crucial for verifying that the container is ready to accept HTT
 - **Easy to Deploy:** Simplifies the process of setting up infrastructure, especially useful when using IaC methodologies.
 - **No Additional Management Required:** Avoids the overhead of maintaining custom-built images.
 
-## TODO
+## Usage
 
-- [ ] Write docs on usage
-- [ ] Create image
-- [ ] Push to docker hub
+To use this image, you can pull it from Docker Hub using the following command:
+
+```bash
+docker pull jshthornton/nginx-healthcheck
+```
+
+As this is built on top of the base nginx image. It supports variable substitution.
+As such, we provide the following to customize the healthcheck endpoint: `NGINX_HEALTH_CHECK_PATH`
+
+## Development
+
+```sh
+docker build -t jshthornton/nginx-healthcheck
+
+docker buildx build --platform linux/amd64 -t jshthornton/nginx-healthcheck .
+```
